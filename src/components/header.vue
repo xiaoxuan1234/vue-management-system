@@ -24,7 +24,7 @@ const user = dataStore.user.find((item) => item.id === dataStore.activeuserId);
 </template>
 <style scoped>
 header {
-  height: 60px;
+  height: 55px;
   background-color: #fff;
   border-bottom: solid 1px #9493934b;
   display: flex;

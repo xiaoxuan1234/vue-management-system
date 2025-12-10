@@ -1,9 +1,7 @@
 <script setup>
 import { ref, reactive } from "vue";
 import { usedataStore } from "../stores/data.js";
-const selectedIndex = ref("1-1");
 const dataStore = usedataStore();
-
 const Addtag = (name, title) => {
   dataStore.tabAdd(name, title);
 };
@@ -16,29 +14,29 @@ const Addtag = (name, title) => {
       background-color="#171e38"
       text-color="#fff"
       active-text-color="#409eff"
-      :default-active="selectedIndex"
+      :default-active="dataStore.selectedName"
     >
       <el-sub-menu index="1">
-        <template #title>商品管理</template>
-        <el-menu-item index="1-1" @click="Addtag('products', '商品管理')"
+        <template #title> 商品管理 </template>
+        <el-menu-item index="products" @click="Addtag('products', '商品管理')"
           >商品管理</el-menu-item
         >
       </el-sub-menu>
       <el-sub-menu index="2">
         <template #title>订单管理</template>
-        <el-menu-item index="2-1" @click="Addtag('orders', '订单管理')"
+        <el-menu-item index="orders" @click="Addtag('orders', '订单管理')"
           >订单管理</el-menu-item
         >
       </el-sub-menu>
       <el-sub-menu index="3">
         <template #title>用户管理</template>
-        <el-menu-item index="3-1" @click="Addtag('users', '用户管理')"
+        <el-menu-item index="users" @click="Addtag('users', '用户管理')"
           >用户管理</el-menu-item
         >
       </el-sub-menu>
       <el-sub-menu index="4">
         <template #title>系统设置</template>
-        <el-menu-item index="4-1" @click="Addtag('set', '系统设置', '4-1')"
+        <el-menu-item index="set" @click="Addtag('set', '系统设置', '4-1')"
           >系统设置</el-menu-item
         >
       </el-sub-menu>
@@ -60,7 +58,7 @@ nav {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  height: 60px;
+  height: 55px;
   color: #fff;
   border-bottom: solid 1px #9493934b;
 }

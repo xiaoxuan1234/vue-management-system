@@ -56,6 +56,7 @@ const tabRemove = (name) => {
   display: flex;
   flex-direction: column;
   background-color: #f5f7fa;
+  overflow: hidden;
 }
 .tag {
   height: 40px;
@@ -65,5 +66,6 @@ const tabRemove = (name) => {
 .manage {
   flex: 1;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 </style>
