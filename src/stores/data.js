@@ -5,7 +5,7 @@ export const usedataStore = defineStore(
   "data",
   () => {
     //用户表
-    const user = reactive([
+    const user = ref([
       {
         id: 1,
         username: "小炫",
@@ -19,7 +19,7 @@ export const usedataStore = defineStore(
     ]);
 
     // 商品表 (status: 0下架 1上架)
-    const products = reactive([
+    const products = ref([
       {
         id: 1,
         name: "小米17 Pro Max",
@@ -47,7 +47,7 @@ export const usedataStore = defineStore(
     ]);
 
     //商品分类表
-    const categories = reactive([
+    const categories = ref([
       {
         id: 1,
         name: "手机数码",
@@ -72,7 +72,7 @@ export const usedataStore = defineStore(
     ]);
 
     // 订单表 (status: 0待付款 1已付款 2已发货 3已完成 4已取消)
-    const orders = reactive([
+    const orders = ref([
       {
         id: 1,
         order_no: "20251209001",
@@ -88,7 +88,7 @@ export const usedataStore = defineStore(
       },
     ]);
     //商品详细表
-    const orderItems = reactive([
+    const orderItems = ref([
       {
         id: 1,
         order_id: 1,
@@ -100,13 +100,13 @@ export const usedataStore = defineStore(
       },
     ]);
     //默认标签选择
-    const tab = reactive([{ name: "products", title: "商品管理" }]);
+    const tab = ref([{ name: "products", title: "商品管理" }]);
     const selectedName = ref("products");
 
     //增加标签
     const tabAdd = (name, title) => {
-      if (!tab.find((item) => item.name === name)) {
-        tab.push({
+      if (!tab.value.find((item) => item.name === name)) {
+        tab.value.push({
           name: name,
           title: title,
         });
@@ -126,8 +126,31 @@ export const usedataStore = defineStore(
       priceRange: "",
     });
 
-    //过滤后的商品列表
-    const filteredProducts = reactive([...products]);
+    //过滤后的商品列表（用ref包装，方便整体替换）
+    const filteredProducts = ref([...products.value]);
+    
+    // 同步filteredProducts
+    const syncFilteredProducts = () => {
+      filteredProducts.value = [...products.value];
+    };
+
+    // 设置filteredProducts（搜索用）
+    const setFilteredProducts = (data) => {
+      filteredProducts.value = data;
+    };
+
+    //新增商品
+    const addProduct = (product) => {
+      const newId =
+        products.value.length > 0 ? Math.max(...products.value.map((p) => p.id)) + 1 : 1;
+      products.value.push({
+        id: newId,
+        ...product,
+        created_at: new Date().toISOString().split("T")[0],
+      });
+      // 同步更新filteredProducts
+      syncFilteredProducts();
+    };
 
     return {
       user,
@@ -141,9 +164,29 @@ export const usedataStore = defineStore(
       searchForm,
       filteredProducts,
       categories,
+      addProduct,
+      syncFilteredProducts,
+      setFilteredProducts,
     };
   },
   {
-    persist: true,
+    persist: {
+      key: "data",
+      storage: localStorage,
+      pick: [
+        "user",
+        "products",
+        "categories",
+        "orders",
+        "orderItems",
+        "tab",
+        "selectedName",
+        "activeuserId",
+      ],
+      afterHydrate: (ctx) => {
+        // 持久化数据恢复后同步filteredProducts
+        ctx.store.syncFilteredProducts();
+      },
+    },
   }
 );

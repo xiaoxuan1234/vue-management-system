@@ -20,3 +20,13 @@ const dataStore = usedataStore();
   height: inherit;
 }
 </style>
+
+<style>
+/* 全局tooltip样式 */
+.el-popper.is-light.is-pure,
+.el-popper.is-dark {
+  max-width: 400px !important;
+  white-space: normal !important;
+  word-break: break-all !important;
+}
+</style>

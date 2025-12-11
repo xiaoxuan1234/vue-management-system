@@ -7,7 +7,6 @@ import OrdersManage from "./OrdersManage.vue";
 import UsersManage from "./UsersManage.vue";
 import SetManage from "./SetManage.vue";
 const dataStore = usedataStore();
-const datatab = dataStore.tab;
 const components = {
   products: ProductsManage,
   orders: OrdersManage,
@@ -15,12 +14,12 @@ const components = {
   set: SetManage,
 };
 const tabRemove = (name) => {
-  const index = datatab.findIndex((item) => item.name === name);
+  const index = dataStore.tab.findIndex((item) => item.name === name);
   if (index === -1) return;
-  datatab.splice(index, 1);
-  if (datatab.length > 0) {
+  dataStore.tab.splice(index, 1);
+  if (dataStore.tab.length > 0) {
     const newIndex = index > 0 ? index - 1 : 0;
-    dataStore.selectedName = datatab[newIndex].name;
+    dataStore.selectedName = dataStore.tab[newIndex].name;
   }
 };
 </script>
@@ -35,7 +34,7 @@ const tabRemove = (name) => {
         @tab-remove="tabRemove"
       >
         <el-tab-pane
-          v-for="(value, key) in datatab"
+          v-for="(value, key) in dataStore.tab"
           :key="value.name"
           :label="value.title"
           :name="value.name"
@@ -43,7 +42,7 @@ const tabRemove = (name) => {
         >
       </el-tabs>
     </div>
-    <div class="manage" v-if="datatab.length > 0">
+    <div class="manage" v-if="dataStore.tab.length > 0">
       <component :is="components[dataStore.selectedName]" />
     </div>
   </div>

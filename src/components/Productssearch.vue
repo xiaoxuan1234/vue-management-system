@@ -28,7 +28,6 @@ const checkPrice = (itemPrice, operator, value) => {
   }
 };
 const search = () => {
-  dataStore.filteredProducts.length = 0;
   const result = dataStore.products.filter((item) => {
     if (searchForm.name && !item.name.includes(searchForm.name)) {
       return false;
@@ -49,7 +48,7 @@ const search = () => {
     }
     return true;
   });
-  dataStore.filteredProducts.push(...result);
+  dataStore.setFilteredProducts(result);
 };
 </script>
 <template>
