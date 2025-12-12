@@ -26,7 +26,6 @@ export const usedataStore = defineStore(
         description: "小米最新旗舰手机",
         price: 5799.0,
         stock: 999,
-        category: "手机数码",
         category_id: 1,
         image: "/img/products/xiaomi.jpg",
         status: 1,
@@ -38,7 +37,6 @@ export const usedataStore = defineStore(
         description: "小米最新旗舰手机壳",
         price: 99.0,
         stock: 999,
-        category: "智能配件",
         category_id: 2,
         image: "/img/products/xiaomi01.jpg",
         status: 1,
@@ -48,6 +46,13 @@ export const usedataStore = defineStore(
 
     //商品分类表
     const categories = ref([
+      {
+        id: 0,
+        name: "无分类",
+        parent_id: 0,
+        sort: 0,
+        status: 1,
+      },
       {
         id: 1,
         name: "手机数码",
@@ -121,17 +126,21 @@ export const usedataStore = defineStore(
     const searchForm = reactive({
       name: "",
       category: "",
-      status: "",
-      price: "",
+      status: null,
+      price: null,
       priceRange: "",
+      created_at: "",
+      description: "",
+      stock: null,
+      stockRange: "",
     });
 
     //过滤后的商品列表（用ref包装，方便整体替换）
     const filteredProducts = ref([...products.value]);
-    
+
     // 同步filteredProducts
     const syncFilteredProducts = () => {
-      filteredProducts.value = [...products.value];
+      filteredProducts.value = products.value.map((p) => ({ ...p }));
     };
 
     // 设置filteredProducts（搜索用）
@@ -142,13 +151,34 @@ export const usedataStore = defineStore(
     //新增商品
     const addProduct = (product) => {
       const newId =
-        products.value.length > 0 ? Math.max(...products.value.map((p) => p.id)) + 1 : 1;
+        products.value.length > 0
+          ? Math.max(...products.value.map((p) => p.id)) + 1
+          : 1;
       products.value.push({
         id: newId,
         ...product,
         created_at: new Date().toISOString().split("T")[0],
       });
       // 同步更新filteredProducts
+      syncFilteredProducts();
+    };
+
+    //删除商品
+    const delProduct = (id) => {
+      const index = products.value.findIndex((value) => value.id == id);
+      products.value.splice(index, 1);
+      syncFilteredProducts();
+    };
+
+    const editProduct = (id, data) => {
+      const index = products.value.findIndex((p) => p.id === id);
+      if (index !== -1) {
+        products.value[index] = {
+          ...products.value[index],
+          ...data,
+          created_at: new Date().toISOString().split("T")[0],
+        };
+      }
       syncFilteredProducts();
     };
 
@@ -167,6 +197,8 @@ export const usedataStore = defineStore(
       addProduct,
       syncFilteredProducts,
       setFilteredProducts,
+      delProduct,
+      editProduct,
     };
   },
   {
