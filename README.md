@@ -1,5 +1,17 @@
-# Vue 3 + Vite
+# 小炫的 Vue 3 + Vite + pinia + element-plus 电商后台管理系统
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+#1.0
+创建了初始的页面结构
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+#1.1
+完成了 nav，header，content，tag
+
+#1.2
+完成了商品管理的布局和搜索
+
+#1.3
+完成了商品管理的增删改查功能,商品管理模块已完成
+
+#部署
+npm install
+npm run dev
