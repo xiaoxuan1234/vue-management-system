@@ -5,7 +5,17 @@ export const usedataStore = defineStore(
   "data",
   () => {
     //用户表
-    const user = ref([
+    const users = ref([
+      {
+        id: 0,
+        username: "未登录",
+        password: "",
+        email: "",
+        phone: "",
+        Icon: "/img/icon/noLog.jpg",
+        status: 0,
+        created_at: "",
+      },
       {
         id: 1,
         username: "小炫",
@@ -76,7 +86,7 @@ export const usedataStore = defineStore(
       },
     ]);
 
-    // 订单表 (status: 0待付款 1已付款 2已发货 3已完成 4已取消)
+    // 订单表 (status: 0待付款 1已付款 2待发货, 3已发货, 4已完成 5已取消)
     const orders = ref([
       {
         id: 1,
@@ -105,8 +115,8 @@ export const usedataStore = defineStore(
       },
     ]);
     //默认标签选择
-    const tab = ref([{ name: "products", title: "商品管理" }]);
-    const selectedName = ref("products");
+    const tab = ref([{ name: "home", title: "首页" }]);
+    const selectedName = ref("home");
 
     //增加标签
     const tabAdd = (name, title) => {
@@ -133,6 +143,7 @@ export const usedataStore = defineStore(
       description: "",
       stock: null,
       stockRange: "",
+      image: "",
     });
 
     //过滤后的商品列表（用ref包装，方便整体替换）
@@ -183,7 +194,7 @@ export const usedataStore = defineStore(
     };
 
     return {
-      user,
+      users,
       products,
       orders,
       orderItems,

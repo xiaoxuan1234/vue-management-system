@@ -52,7 +52,7 @@ const search = () => {
     }
     if (
       searchForm.description &&
-      !item.description.includes(searchForm.description)
+      (!item.description || !item.description.includes(searchForm.description))
     ) {
       return false;
     }
@@ -62,6 +62,9 @@ const search = () => {
       return false;
     }
     if (searchForm.created_at && item.created_at !== searchForm.created_at) {
+      return false;
+    }
+    if (searchForm.image && (!item.image || !item.image.includes(searchForm.image))) {
       return false;
     }
     return true;
@@ -80,6 +83,7 @@ const search = () => {
           <el-input
             v-model="searchForm.name"
             clearable
+            maxlength="50"
             placeholder="请输入"
             style="width: 200px"
           />
@@ -110,7 +114,12 @@ const search = () => {
         </div>
         <div class="search-item">
           <div>商品价格</div>
-          <el-input v-model="searchForm.price" clearable placeholder="请输入">
+          <el-input
+            v-model="searchForm.price"
+            clearable
+            placeholder="请输入"
+            maxlength="11"
+          >
             <template #prepend>
               <el-select
                 v-model="searchForm.priceRange"
@@ -144,12 +153,28 @@ const search = () => {
           <el-input
             v-model="searchForm.description"
             placeholder="请输入"
+            maxlength="50"
+            style="width: 200px"
+          />
+        </div>
+        <div class="search-item">
+          <div>商品图片</div>
+          <el-input
+            v-model="searchForm.image"
+            clearable
+            maxlength="50"
+            placeholder="请输入"
             style="width: 200px"
           />
         </div>
         <div class="search-item">
           <div>商品库存</div>
-          <el-input v-model="searchForm.stock" clearable placeholder="请输入">
+          <el-input
+            v-model="searchForm.stock"
+            clearable
+            placeholder="请输入"
+            maxlength="11"
+          >
             <template #prepend>
               <el-select
                 v-model="searchForm.stockRange"

@@ -150,7 +150,7 @@ const editProduct = () => {
         ></el-table-column>
         <el-table-column
           prop="id"
-          label="编号"
+          label="商品ID"
           min-width="100"
           align="center"
           sortable
@@ -211,7 +211,9 @@ const editProduct = () => {
           label="商品图片"
           min-width="140"
           sortable
-        />
+          align="center"
+        >
+        </el-table-column>
         <el-table-column
           label="操作"
           min-width="100"
@@ -242,6 +244,7 @@ const editProduct = () => {
                 <div>商品名称</div>
                 <el-input
                   placeholder="请输入"
+                  maxlength="50"
                   style="width: 200px"
                   v-model="editProductdata.name"
                 />
@@ -307,6 +310,7 @@ const editProduct = () => {
                 <div>商品图片</div>
                 <el-input
                   placeholder="请输入"
+                  maxlength="50"
                   v-model="editProductdata.image"
                 />
               </el-form-item>

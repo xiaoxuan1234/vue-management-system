@@ -6,8 +6,10 @@ import ProductsManage from "./ProductsManage.vue";
 import OrdersManage from "./OrdersManage.vue";
 import UsersManage from "./UsersManage.vue";
 import SetManage from "./SetManage.vue";
+import home from "./home.vue";
 const dataStore = usedataStore();
 const components = {
+  home: home,
   products: ProductsManage,
   orders: OrdersManage,
   users: UsersManage,
@@ -65,6 +67,6 @@ const tabRemove = (name) => {
 .manage {
   flex: 1;
   background-color: #f8f8f8;
-  overflow: hidden;
+  overflow: auto;
 }
 </style>

@@ -2,6 +2,7 @@
 import { ref, reactive } from "vue";
 import { usedataStore } from "../stores/data.js";
 import { ElMessage, ElMessageBox } from "element-plus";
+
 const dataStore = usedataStore();
 const dialog = ref(false);
 const DeleteBox = ref(false);
@@ -19,7 +20,7 @@ const addProductdata = reactive({
   stock: null,
   category_id: null,
   status: "",
-  img: "",
+  image: "",
   description: "",
 });
 
@@ -56,7 +57,7 @@ const resetForm = () => {
   addProductdata.stock = null;
   addProductdata.category_id = null;
   addProductdata.status = "";
-  addProductdata.img = "";
+  addProductdata.image = "";
   addProductdata.description = "";
 };
 
@@ -114,6 +115,7 @@ const confirmDelete = () => {
   hint("success", "删除商品成功");
   DeleteBox.value = false;
 };
+
 </script>
 <template>
   <div class="product-operation">
@@ -140,6 +142,7 @@ const confirmDelete = () => {
               <el-input
                 v-model="addProductdata.name"
                 placeholder="请输入"
+                maxlength="50"
                 style="width: 200px"
               />
             </el-form-item>
@@ -203,8 +206,8 @@ const confirmDelete = () => {
             <el-form-item>
               <div>商品图片</div>
               <el-input
-                v-model="addProductdata.img"
-                placeholder="请输入"
+                v-model="addProductdata.image"
+                placeholder="请输入图片路径"
                 style="width: 200px"
               />
             </el-form-item>
@@ -274,4 +277,5 @@ const confirmDelete = () => {
 .add-del {
   border-bottom: 1px solid rgba(0, 0, 0, 0.055);
 }
+
 </style>

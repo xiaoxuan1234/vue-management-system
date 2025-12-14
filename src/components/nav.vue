@@ -17,26 +17,32 @@ const Addtag = (name, title) => {
       :default-active="dataStore.selectedName"
     >
       <el-sub-menu index="1">
+        <template #title> 首页 </template>
+        <el-menu-item index="home" @click="Addtag('home', '首页')"
+          >首页</el-menu-item
+        >
+      </el-sub-menu>
+      <el-sub-menu index="2">
         <template #title> 商品管理 </template>
         <el-menu-item index="products" @click="Addtag('products', '商品管理')"
           >商品管理</el-menu-item
         >
       </el-sub-menu>
-      <el-sub-menu index="2">
+      <el-sub-menu index="3">
         <template #title>订单管理</template>
         <el-menu-item index="orders" @click="Addtag('orders', '订单管理')"
           >订单管理</el-menu-item
         >
       </el-sub-menu>
-      <el-sub-menu index="3">
+      <el-sub-menu index="4">
         <template #title>用户管理</template>
         <el-menu-item index="users" @click="Addtag('users', '用户管理')"
           >用户管理</el-menu-item
         >
       </el-sub-menu>
-      <el-sub-menu index="4">
+      <el-sub-menu index="5">
         <template #title>系统设置</template>
-        <el-menu-item index="set" @click="Addtag('set', '系统设置', '4-1')"
+        <el-menu-item index="set" @click="Addtag('set', '系统设置')"
           >系统设置</el-menu-item
         >
       </el-sub-menu>
