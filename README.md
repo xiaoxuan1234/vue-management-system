@@ -1,4 +1,5 @@
-# 小炫的 Vue 3 + Vite + pinia + element-plus 电商后台管理系统
+#   项目名：电商后台管理系统
+Vue 3 + Vite + pinia + element-plus
 
 #1.0
 创建了初始的页面结构
